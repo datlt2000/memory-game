@@ -1,21 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Home from './src/layout/Home';
+import Game from './src/layout/Game';
+import Level from './src/layout/Level';
+
+const Stack = createStackNavigator();
 
 export default function App() {
+  const s = (title) => {
+    return {
+      title: '',
+      headerTransparent: true,
+      headerTitleAlign: 'center',
+      headerTitleStyle: { fontWeight: 'bold', fontSize: 44, color: '#ffb26a' },
+      headerTintColor: '#0B4BB1'
+    };
+  }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Home'>
+        <Stack.Screen
+          name='Home'
+          component={Home}
+          options={s('Welcome')} />
+        <Stack.Screen
+          name='Game'
+          component={Game}
+          options={s('Memory')} />
+        <Stack.Screen
+          name='Level'
+          component={Level}
+          options={s('Level')} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+};
